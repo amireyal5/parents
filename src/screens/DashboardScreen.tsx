@@ -80,7 +80,7 @@ const CalendarTeaser: FC = () => (
     </div>
 )
 
-const PendingPayments: FC<{patients: Patient[]}> = ({ patients }) => {
+const PendingPayments: FC<{patients: Patient[], userRole: string, navigate: (path: string) => void}> = ({ patients, userRole, navigate }) => {
     const pending = patients.filter(p => p.paymentStatus === 'באיחור' || p.paymentStatus === 'בהמתנה');
     if (pending.length === 0) return null;
 
@@ -100,7 +100,7 @@ const PendingPayments: FC<{patients: Patient[]}> = ({ patients }) => {
                             <div className="name">{`${p.firstName} ${p.lastName}`}</div>
                             <div className="details">פגישה מ- {new Date(p.startDate!).toLocaleDateString('he-IL')}</div>
                         </div>
-                        <a href="#/" className="btn-link">צפה בתיק</a>
+                        <a href={`#/${userRole}/patient/${p.id}`} onClick={(e) => { e.preventDefault(); navigate(`/${userRole}/patient/${p.id}`);}} className="btn-link">צפה בתיק</a>
                     </div>
                 ))}
             </div>
@@ -162,7 +162,7 @@ export const DashboardScreen: FC<{ isAdmin: boolean, navigate: (path: string) =>
                 <div style={{display: 'flex', flexDirection: 'column', gap: '1.5rem'}}>
                     <QuickActions />
                     <CalendarTeaser />
-                    <PendingPayments patients={patients} />
+                    <PendingPayments patients={patients} userRole={user!.role.toLowerCase()} navigate={navigate} />
                 </div>
             </div>
         </div>

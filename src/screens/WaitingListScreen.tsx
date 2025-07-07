@@ -56,7 +56,9 @@ export const WaitingListScreen: FC<{ navigate: (path: string) => void }> = ({ na
     
     const handleRowClick = (patientId: number) => {
         const basePath = user?.role?.toLowerCase();
-        navigate(`/${basePath}/billing/${patientId}`);
+        if (basePath) {
+            navigate(`/${basePath}/patient/${patientId}`);
+        }
     };
 
     const waitingPatients = useMemo(() => {

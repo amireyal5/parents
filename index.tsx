@@ -6,7 +6,8 @@ import { useHashRouter } from './src/hooks/useHashRouter';
 
 import { LoginScreen } from './src/screens/LoginScreen';
 import { DashboardScreen } from './src/screens/DashboardScreen';
-import { BillingScreen } from './src/screens/BillingScreen';
+import { PatientProfileScreen } from './src/screens/PatientProfileScreen';
+import { PatientsScreen } from './src/screens/PatientsScreen';
 import { SettingsScreen } from './src/screens/SettingsScreen';
 import { WaitingListScreen } from './src/screens/WaitingListScreen';
 
@@ -58,9 +59,11 @@ const App: FC = () => {
         switch (screen) {
             case 'dashboard':
                 return <DashboardScreen isAdmin={user.role === 'Admin'} navigate={navigate} />;
-            case 'billing':
-                const patientId = params[2];
-                return <BillingScreen patientId={patientId} navigate={navigate} />;
+            case 'patients':
+                return <PatientsScreen navigate={navigate} />;
+            case 'patient':
+                const patientId = params[3]; // Path is now /:role/patient/:id, so id is at index 3
+                return <PatientProfileScreen patientId={patientId} navigate={navigate} />;
             case 'settings':
                 return <SettingsScreen />;
             case 'waiting-list':

@@ -10,6 +10,7 @@ const navLinks = [
     { path: '/dashboard', label: 'לוח מחוונים', icon: <HomeIcon /> },
     { path: '/patients', label: 'כל המטופלים', icon: <UsersIcon />, roles: ['Admin', 'Secretary', 'Accountant', 'Therapist'] },
     { path: '/schedule', label: 'יומן פגישות', icon: <CalendarIcon />, roles: ['Admin', 'Secretary', 'Therapist'] },
+    { path: '/waiting-list', label: 'רשימת המתנה', icon: <ChecklistIcon />, roles: ['Admin', 'Secretary'] },
     { path: '/finance', label: 'כספים', icon: <WalletIcon />, roles: ['Admin', 'Accountant'] },
     { path: '/tasks', label: 'משימות', icon: <ChecklistIcon />, roles: ['Admin', 'Secretary', 'Therapist'] },
     { path: '/settings', label: 'הגדרות', icon: <SettingsIcon />, roles: ['Admin'] },
@@ -105,7 +106,7 @@ export const Sidebar: FC = () => {
                     </div>
                     <div className="sidebar-patient-list">
                         {filteredPatients.map(p => (
-                            <a key={p.id} href={`#/${rolePath}/billing/${p.id}`} className="sidebar-patient-item" onClick={(e) => {e.preventDefault(); navigate(`/${rolePath}/billing/${p.id}`)}}>
+                            <a key={p.id} href={`#/${rolePath}/patient/${p.id}`} className="sidebar-patient-item" onClick={(e) => {e.preventDefault(); navigate(`/${rolePath}/patient/${p.id}`)}}>
                                 <PatientAvatar name={`${p.firstName} ${p.lastName}`} size={32} />
                                 <span className="patient-name">{`${p.firstName} ${p.lastName}`}</span>
                                 {p.paymentStatus === 'באיחור' && <div className="notification-badge">!</div>}
